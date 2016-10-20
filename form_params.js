@@ -1,5 +1,8 @@
 var http = require("http"),
-  fs   = require("fs");
+    fs   = require("fs"),
+    params = require("./params_parse.js"),
+    render = require("./render_view.js");
+
 
 http.createServer(function (req, res) {
 
@@ -13,31 +16,10 @@ http.createServer(function (req, res) {
       res.writeHead(200,{"Content-type": "text/html"})
       
       var html_string = html.toString();
-      var params = [];
-      var obj_params = {};
-      var vars = html_string.match(/[^\{\}]+(?=\})/g);
-      
-      if (req.url.indexOf("?") > 0){
-        // ?nombre=Jose
+      var obj_params = params.getParams(req)
+    
 
-        var url_data = req.url.split("?");
-        params = url_data[1].split("&")
-      }
-
-      // desglose de parametros
-      params.map(function (p, i) {
-        // nombre=Jose
-        var param_data = p.split("=");
-        // [nombre,Jose]
-        obj_params[param_data[0]] = param_data[1]
-        // {nombre: Jose}
-      })
-
-      vars.map(function (v, i) {
-        html_string = html_string.replace("{"+ v +"}", obj_params[v]);
-      })
-
-      res.write(html_string);
+      res.write(render.renderView(html_string, obj_params));
       res.end();
     }
   })
