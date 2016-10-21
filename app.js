@@ -6,7 +6,16 @@ var app = express();
 app.set("view engine", "jade");
 
 app.get("/", function (req, res) {
-  res.render("index", {vars: "Iteración"});
+  //res.render("index");
+  res.render("example-routing");
+})
+
+app.get("/:nombre", function (req, res) {
+  res.render("form",{nombre: req.params.nombre});
+})
+
+app.post("/", function (req, res){
+  res.render("form");
 })
 
 app.listen(9200)
