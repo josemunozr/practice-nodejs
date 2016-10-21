@@ -6,7 +6,7 @@ var app = express();
 app.set("view engine", "jade");
 
 app.get("/", function (req, res) {
-  res.render("index", {vars: "Prueba variables via express"});
+  res.render("index", {vars: "Iteración"});
 })
 
 app.listen(9200)

@@ -4,4 +4,24 @@ html(lang="en")
     title Practicas Nodejs - Jade
   body
     h1!= vars
-   
+    // iteracion
+    - var array = [1,2,3,4,5]
+    - each val, index in array
+      p= val
+    h3 iteración, render html
+    - each val, index in array
+      p!= "<strong>" + val + "</strong>"
+    
+    //interpolacion
+    h1 Interporlación
+    - var string = "Mundo"
+    p Hola #{string}
+    p.
+      Has click #[a(href="/") aqui] ...
+    
+    // condicion
+    h1 Condición
+    if true
+      p Condición True
+    if false
+      p Condición False
